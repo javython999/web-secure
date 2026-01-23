@@ -32,3 +32,18 @@ sequenceDiagram
 2. In-line Query: 
    * `admin' or '1'='1`
    * `SELECT * FROM users WHERE id = 'admin' or '1'='1' and pw=`
+
+## 6) 데이터 조회 공격이란 무엇인가?
+* 애플리케이션이 의도하지 않은 데이터를 조회하도록 조작하는 공격 유형
+
+## 7) 데이터 조회 공격 기법 종류
+* Error-Based
+* Blind-Based
+* Union-Based
+* Out-of-band(OOB)
+
+## 8) Union-Based 공격이란 무엇인가?
+* `UNION` 구문을 이용해 공격자가 원하는 다른 쿼리를 결합해 정보를 노출시키는 공격 유형
+
+## 9) Blind-Based 공격이란 무엇인가?
+* 공격자가 `직접적인 응답 결과를 볼 수 없는 상황`에서, 간접적인 변화(시간, 참/거짓, 동작 여부 등)를 이용해 정보를 추론하는 공격 유형

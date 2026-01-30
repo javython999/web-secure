@@ -59,8 +59,8 @@ sequenceDiagram
     participant hacker
     participant client
     hacker ->> client: 악성스크립트
-    client -->> WebService: request
-    WebService -->> client: response
+    client -->> webService: request
+    webService -->> client: response
     client ->> hackerServer: data 전송
 ```
 
@@ -69,11 +69,11 @@ sequenceDiagram
 sequenceDiagram
     participant hacker
     participant client
-    participant WebService
-    participant Application
+    participant webService
+    participant application
     hacker ->> client: 악성스크립트
-    client -->> Application: request
-    Application -->> client: response
+    client -->> application: request
+    application -->> client: response
     client ->> hackerServer: data 전송
 ```
 
@@ -81,16 +81,42 @@ sequenceDiagram
 ```mermaid
 sequenceDiagram
     participant hacker
-    participant WebService
-    participant Application
-    participant Database
+    participant webService
+    participant application
+    participant database
     participant client
     participant hackerServer
-    hacker ->> WebService: 악성스크립트
-    WebService ->> Database: 악성스크립트 저장
-    client ->> WebService: request
-    WebService -->> Database: request
-    Database -->> WebService: response
-    WebService ->> client: response
+    hacker ->> webService: 악성스크립트
+    webService ->> database: 악성스크립트 저장
+    client ->> webService: request
+    webService -->> database: request
+    database -->> webService: response
+    webService ->> client: response
     client ->> hackerServer: data 전송
+```
+
+## 6) 세션 하이재킹에 대한 이해와 공격 원리 분석
+* 세션 탈취를 통해 아이디, 패스워드를 몰라도 사용자 계정 도용
+
+```mermaid
+sequenceDiagram
+    participant hacker
+    participant webService
+    participant application
+    participant database
+    participant client
+    participant hackerServer
+    
+    hacker ->> webService: 
+    webService --> application: 
+    application ->> database: 
+    client ->> webService: request 
+    webService --> application: 
+    application ->> database: read 
+    database ->> application: 
+    application ->> webService: 
+    webService ->> client: response
+    client ->> hackerServer: 세션정보 전송
+    hackerServer ->> hacker: 세선정보 탈취
+    hacker ->> webService: 탈취한 세션 사용
 ```

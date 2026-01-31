@@ -120,3 +120,43 @@ sequenceDiagram
     hackerServer ->> hacker: 세선정보 탈취
     hacker ->> webService: 탈취한 세션 사용
 ```
+
+## 7) 대응 방안
+* 대응하기 까다로운 XSS 취약점
+  * 보안과 서비스성은 트레이드 오프 관계
+
+* 입력 값 용도에 따른 대응 프로세스 수립
+```mermaid
+flowchart TB
+    input["사용자 입력 값"]
+    validation["정규 표현식을 통한 입력 값 검증"]
+    html{"HTML 사용 여부"}
+    
+    subgraph validation
+        regex
+        security-library
+        html-entity-encoding
+    end
+    input --> number["숫자"]
+    input --> string["단순 문자 (+숫자)"]
+    input --> specialString["문자 + 특수문자"]
+    number --> regex
+    string --> regex
+    specialString --> regex
+    specialString --> html
+    html -- yes --> security-library
+    html -- no --> html-entity-encoding
+    
+```
+
+* HTML Entity Encoding
+
+| 문자 | 엔티티                 |
+|----|---------------------|
+| `&`  | `&amp;`             |
+| `<`  | `&lt;`              |
+| `>`  | `gt;`               |
+| `"`  | `&#34;` 혹은 `&quot;` |
+| `'`  | `&#39;` 혹은 `&apos`  |
+| `(`  | `&#40;`             |
+| `)`  | `&#41; `             |
